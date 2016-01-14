@@ -4,10 +4,21 @@ $(document).ready(init);
 
 function init(){
 	$('.add').click(addContact);
+	$('tbody').on('click', '.fa-trash', removeContact);
 	if(localStorage.getItem('contacts'))
 	updateContacts();
 }
 
+function removeContact() {
+	var deleteIndex = $(this).closest('tr').index();
+	console.log(deleteIndex);
+	$(this).closest('tr').remove();
+	var contacts = JSON.parse(localStorage.getItem('contacts'));
+	contacts.splice((deleteIndex-1), 1);
+	contacts = JSON.stringify(contacts);
+	localStorage.setItem('contacts', contacts);
+
+}
 
 function addContact() {
 	//console.log('yea');
